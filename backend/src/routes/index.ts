@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import healthRouter from './health.js';
 import skillsRouter from './skills.js';
+import heartbeatRouter from './heartbeat.js';
 import agentsRouter from './agents.js';
 import observeRouter from './observe.js';
 import actRouter from './act.js';
@@ -20,6 +21,9 @@ router.use('/health', healthRouter);
 
 // Skills.md (agent onboarding)
 router.use('/skills.md', skillsRouter);
+
+// Heartbeat.md (agent status polling)
+router.use('/heartbeat.md', heartbeatRouter);
 
 // Agent API
 router.use('/api/agents', agentsRouter);

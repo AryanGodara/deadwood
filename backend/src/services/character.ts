@@ -62,9 +62,9 @@ function generateStats(role: VisitorRole): { grit: number; charm: number; cunnin
 /**
  * Register a new character
  */
-export function registerCharacter(
+export async function registerCharacter(
   input: RegisterRequest
-): { agentId: string; apiKey: string; character: Character } {
+): Promise<{ agentId: string; apiKey: string; character: Character }> {
   const agentId = generateAgentId();
   const apiKey = generateApiKey();
   const role: VisitorRole = input.preferredRole || 'stranger';
@@ -89,7 +89,7 @@ export function registerCharacter(
     createdAt: Date.now(),
   };
 
-  store.createCharacter(character);
+  await store.createCharacter(character);
 
   return { agentId, apiKey, character };
 }
@@ -97,7 +97,7 @@ export function registerCharacter(
 /**
  * Get character by API key hash
  */
-export function getCharacterByApiKey(apiKey: string): Character | undefined {
+export async function getCharacterByApiKey(apiKey: string): Promise<Character | undefined> {
   const hash = hashApiKey(apiKey);
   return store.getCharacterByApiKeyHash(hash);
 }

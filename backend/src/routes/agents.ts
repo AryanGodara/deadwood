@@ -8,8 +8,8 @@ import { success } from '../lib/response.js';
 
 const router = Router();
 
-router.post('/register', validate(RegisterRequestSchema), (req, res) => {
-  const result = registerCharacter(req.body);
+router.post('/register', validate(RegisterRequestSchema), async (req, res) => {
+  const result = await registerCharacter(req.body);
 
   // Broadcast world announcement
   const tick = store.getTick();
@@ -19,6 +19,9 @@ router.post('/register', validate(RegisterRequestSchema), (req, res) => {
     narrative: `A new stranger has arrived in Deadwood: ${result.character.name}.`,
   });
   broadcastGlobal(event);
+
+  // Ensure Redis save completes before returning (serverless cold start issue)
+  await store.flushToRedis();
 
   // Return character info (without internal fields)
   success(res, {

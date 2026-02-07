@@ -33,9 +33,9 @@ export interface WorldState {
 
 export interface IStore {
   // Characters
-  createCharacter(character: Character): Character;
+  createCharacter(character: Character): Promise<Character>;
   getCharacterById(id: string): Character | undefined;
-  getCharacterByApiKeyHash(hash: string): Character | undefined;
+  getCharacterByApiKeyHash(hash: string): Promise<Character | undefined>;
   getCharacterByName(name: string): Character | undefined;
   getCharactersByRoom(roomId: RoomId): Character[];
   getAllCharacters(): Character[];
@@ -79,4 +79,7 @@ export interface IStore {
   queueAction(characterId: string, action: { action: string; params?: Record<string, unknown> }): void;
   getQueuedActions(): Map<string, { action: string; params?: Record<string, unknown> }>;
   clearActionQueue(): void;
+
+  // Persistence
+  flushToRedis(): Promise<void>;
 }

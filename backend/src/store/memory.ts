@@ -96,7 +96,7 @@ class MemoryStore implements IStore {
   }
 
   // Characters
-  createCharacter(character: Character): Character {
+  async createCharacter(character: Character): Promise<Character> {
     this.characters.set(character.id, character);
     return character;
   }
@@ -105,7 +105,7 @@ class MemoryStore implements IStore {
     return this.characters.get(id);
   }
 
-  getCharacterByApiKeyHash(hash: string): Character | undefined {
+  async getCharacterByApiKeyHash(hash: string): Promise<Character | undefined> {
     for (const character of this.characters.values()) {
       if (character.apiKeyHash === hash) {
         return character;
@@ -304,6 +304,11 @@ class MemoryStore implements IStore {
 
   clearActionQueue(): void {
     this.actionQueue.clear();
+  }
+
+  // No-op for memory store
+  async flushToRedis(): Promise<void> {
+    // Memory store doesn't need Redis persistence
   }
 }
 

@@ -11,11 +11,14 @@ import {
 import type { IStore, Bounty, Duel, WorldState } from './types.js';
 import { v4 as uuid } from 'uuid';
 
-// Redis client - only create if env vars are set
-const redis = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+// Redis client - check both naming conventions (Vercel KV vs direct Upstash)
+const redisUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+const redisToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+
+const redis = redisUrl && redisToken
   ? new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+      url: redisUrl,
+      token: redisToken,
     })
   : null;
 
@@ -48,6 +51,9 @@ class UpstashStore implements IStore {
     startedAt: Date.now(),
   };
 
+  // Tick duration in milliseconds (5 seconds)
+  private readonly TICK_DURATION_MS = 5000;
+
   private initialized = false;
   private initPromise: Promise<void> | null = null;
   private saveDebounce: NodeJS.Timeout | null = null;
@@ -56,6 +62,15 @@ class UpstashStore implements IStore {
     // Initialize synchronously with NPCs, then load from Redis
     this.initializeNPCs();
     this.initPromise = this.loadFromRedis();
+  }
+
+  /**
+   * Ensure the store is loaded from Redis before any operation
+   */
+  private async ensureLoaded(): Promise<void> {
+    if (!this.initialized && this.initPromise) {
+      await this.initPromise;
+    }
   }
 
   private async loadFromRedis(): Promise<void> {
@@ -114,6 +129,17 @@ class UpstashStore implements IStore {
     this.saveDebounce = setTimeout(() => {
       this.saveToRedis().catch(console.error);
     }, 100);
+  }
+
+  /**
+   * Force an immediate save to Redis (for critical operations)
+   */
+  async flushToRedis(): Promise<void> {
+    if (this.saveDebounce) {
+      clearTimeout(this.saveDebounce);
+      this.saveDebounce = null;
+    }
+    await this.saveToRedis();
   }
 
   private ensureNPCs(): void {
@@ -220,9 +246,11 @@ class UpstashStore implements IStore {
   }
 
   // === Character methods ===
-  createCharacter(character: Character): Character {
+  async createCharacter(character: Character): Promise<Character> {
+    await this.ensureLoaded();
     this.characters.set(character.id, character);
-    this.scheduleSave();
+    // Immediate save for character creation (critical operation)
+    await this.saveToRedis();
     return character;
   }
 
@@ -230,7 +258,8 @@ class UpstashStore implements IStore {
     return this.characters.get(id);
   }
 
-  getCharacterByApiKeyHash(hash: string): Character | undefined {
+  async getCharacterByApiKeyHash(hash: string): Promise<Character | undefined> {
+    await this.ensureLoaded();
     for (const character of this.characters.values()) {
       if (character.apiKeyHash === hash) {
         return character;
@@ -402,18 +431,31 @@ class UpstashStore implements IStore {
   }
 
   // === World state methods ===
+
+  /**
+   * Calculate current tick based on elapsed time since world started.
+   * This is serverless-compatible - no need for a persistent tick loop.
+   */
+  private calculateCurrentTick(): number {
+    const elapsed = Date.now() - this.worldState.startedAt;
+    return Math.floor(elapsed / this.TICK_DURATION_MS);
+  }
+
   getTick(): number {
-    return this.worldState.tick;
+    return this.calculateCurrentTick();
   }
 
   incrementTick(): number {
-    this.worldState.tick++;
-    this.scheduleSave();
-    return this.worldState.tick;
+    // In time-based system, tick auto-increments. Just return current.
+    return this.calculateCurrentTick();
   }
 
   getWorldState(): WorldState {
-    return { ...this.worldState };
+    const currentTick = this.calculateCurrentTick();
+    return {
+      ...this.worldState,
+      tick: currentTick,
+    };
   }
 
   setWorldPaused(paused: boolean): void {

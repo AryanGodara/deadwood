@@ -14,7 +14,7 @@ declare global {
 /**
  * Middleware to authenticate agent via Bearer token
  */
-export const agentAuth: RequestHandler = (req, res, next) => {
+export const agentAuth: RequestHandler = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -30,7 +30,7 @@ export const agentAuth: RequestHandler = (req, res, next) => {
 
   const token = authHeader.slice(7); // Remove 'Bearer '
 
-  const character = getCharacterByApiKey(token);
+  const character = await getCharacterByApiKey(token);
 
   if (!character) {
     res.status(401).json({

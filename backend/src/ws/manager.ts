@@ -78,7 +78,7 @@ class WebSocketManager {
     ws.send(JSON.stringify({ type: 'connected', message: 'Welcome to Deadwood' }));
   }
 
-  private handleAgentConnection(ws: WebSocket, url: URL): void {
+  private async handleAgentConnection(ws: WebSocket, url: URL): Promise<void> {
     const token = url.searchParams.get('token');
 
     if (!token) {
@@ -86,7 +86,7 @@ class WebSocketManager {
       return;
     }
 
-    const character = getCharacterByApiKey(token);
+    const character = await getCharacterByApiKey(token);
 
     if (!character) {
       ws.close(4001, 'Invalid token');
