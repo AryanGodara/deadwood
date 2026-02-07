@@ -38,7 +38,7 @@ router.get('/fees', (_req: Request, res: Response) => {
     ethFeeFormatted: (parseFloat(config.ethFee) / 1e18).toFixed(6) + ' ETH',
   }));
 
-  return res.json(success({ fees }));
+  return success(res, { data: { fees } });
 });
 
 /**
@@ -91,18 +91,20 @@ router.post(
         filesCount: files?.length || 0,
       });
 
-      return res.json(success({
-        submission,
-        message: 'PR submitted successfully. Pending review.',
-        nextSteps: [
-          'Your PR will be reviewed by the Deadwood maintainers',
-          'If approved, changes will be merged and you will be notified',
-          'If rejected, your payment will be refunded',
-        ],
-      }));
+      return success(res, {
+        data: {
+          submission,
+          message: 'PR submitted successfully. Pending review.',
+          nextSteps: [
+            'Your PR will be reviewed by the Deadwood maintainers',
+            'If approved, changes will be merged and you will be notified',
+            'If rejected, your payment will be refunded',
+          ],
+        },
+      });
     } catch (err) {
       console.error('PR submission error:', err);
-      return res.status(500).json(error('SUBMISSION_FAILED', 'Failed to submit PR'));
+      return error(res, { code: 'SUBMISSION_FAILED', message: 'Failed to submit PR', status: 500 });
     }
   }
 );
@@ -116,14 +118,16 @@ router.get('/status/:prIdentifier', (req: Request, res: Response) => {
 
   // In production, fetch from database
   // For now, return mock status
-  return res.json(success({
-    prIdentifier,
-    status: 'pending_review',
-    message: 'PR is awaiting review',
-    submittedAt: null, // Would come from DB
-    reviewedAt: null,
-    mergedAt: null,
-  }));
+  return success(res, {
+    data: {
+      prIdentifier,
+      status: 'pending_review',
+      message: 'PR is awaiting review',
+      submittedAt: null, // Would come from DB
+      reviewedAt: null,
+      mergedAt: null,
+    },
+  });
 });
 
 /**
@@ -135,14 +139,16 @@ router.get('/list', (req: Request, res: Response) => {
 
   // In production, fetch from database with filters
   // For now, return empty list
-  return res.json(success({
-    submissions: [],
-    total: 0,
-    filters: {
-      status: status || 'all',
-      agentAddress: agentAddress || null,
+  return success(res, {
+    data: {
+      submissions: [],
+      total: 0,
+      filters: {
+        status: status || 'all',
+        agentAddress: agentAddress || null,
+      },
     },
-  }));
+  });
 });
 
 /**
@@ -153,16 +159,18 @@ router.post('/check-payment', (req: Request, res: Response) => {
   const { prIdentifier } = req.body;
 
   if (!prIdentifier) {
-    return res.status(400).json(error('MISSING_PR_IDENTIFIER', 'PR identifier required'));
+    return error(res, { code: 'MISSING_PR_IDENTIFIER', message: 'PR identifier required' });
   }
 
   // In production, check smart contract
   // For now, return not paid
-  return res.json(success({
-    prIdentifier,
-    isPaid: false,
-    paymentDetails: null,
-  }));
+  return success(res, {
+    data: {
+      prIdentifier,
+      isPaid: false,
+      paymentDetails: null,
+    },
+  });
 });
 
 export default router;

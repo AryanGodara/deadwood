@@ -1,5 +1,5 @@
 import type { ErrorRequestHandler } from 'express';
-import { ERROR_CODES } from '@deadwood/shared';
+import { ERROR_CODES } from '../shared/index.js';
 
 export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   console.error('Error:', err);

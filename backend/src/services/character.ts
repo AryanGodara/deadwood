@@ -9,7 +9,7 @@ import {
   type Character,
   type VisitorRole,
   type RegisterRequest,
-} from '@deadwood/shared';
+} from '../shared/index.js';
 import { store } from '../store/index.js';
 
 /**

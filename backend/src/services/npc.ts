@@ -1,5 +1,5 @@
-import type { Character, GameEvent, RoomId } from '@deadwood/shared';
-import { NPCS } from '@deadwood/shared';
+import type { Character, GameEvent, RoomId } from '../shared/index.js';
+import { NPCS } from '../shared/index.js';
 import { store } from '../store/index.js';
 import { generateNpcDialogue } from '../engine/narrator.js';
 

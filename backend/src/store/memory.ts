@@ -6,7 +6,7 @@ import {
   type Character,
   type GameEvent,
   type RoomId,
-} from '@deadwood/shared';
+} from '../shared/index.js';
 import type { IStore, Bounty, Duel, WorldState } from './types.js';
 import { v4 as uuid } from 'uuid';
 

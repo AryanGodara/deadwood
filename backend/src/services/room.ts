@@ -1,4 +1,4 @@
-import { ROOM_DATA, ROOM_EXITS, type RoomId, type DayPhase } from '@deadwood/shared';
+import { ROOM_DATA, ROOM_EXITS, type RoomId, type DayPhase } from '../shared/index.js';
 import { store } from '../store/index.js';
 import { getCharacterPublicInfo } from './character.js';
 import { getRecentEvents } from './event.js';

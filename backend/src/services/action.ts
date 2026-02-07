@@ -8,7 +8,7 @@ import {
   MAX_HEALTH,
   type Character,
   type RoomId,
-} from '@deadwood/shared';
+} from '../shared/index.js';
 import { store } from '../store/index.js';
 import { narrate } from '../engine/narrator.js';
 import { resolveShooting, resolvePunch, hasAmmo, deductAmmo } from '../engine/combat.js';

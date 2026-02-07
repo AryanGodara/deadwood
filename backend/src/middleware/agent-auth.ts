@@ -1,5 +1,5 @@
 import type { RequestHandler } from 'express';
-import { ERROR_CODES, type Character } from '@deadwood/shared';
+import { ERROR_CODES, type Character } from '../shared/index.js';
 import { getCharacterByApiKey } from '../services/character.js';
 
 // Extend Express Request to include agent

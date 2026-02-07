@@ -1,5 +1,5 @@
 import type { Response } from 'express';
-import type { DayPhase } from '@deadwood/shared';
+import type { DayPhase } from '../shared/index.js';
 import { store } from '../store/index.js';
 import { getInGameTime } from '../engine/time.js';
 

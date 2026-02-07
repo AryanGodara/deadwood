@@ -186,10 +186,13 @@ async function checkPRPaid(config: X402Config, prIdentifier: string): Promise<bo
     // const contract = new ethers.Contract(config.prGateAddress, PR_GATE_ABI, provider);
     // return await contract.isPRPaid(prIdentifier);
 
+    // Suppress unused variable warning
+    void prIdentifier;
+
     // For now, return false to require payment
     return false;
-  } catch (error) {
-    console.error('Failed to check PR payment:', error);
+  } catch (err) {
+    console.error('Failed to check PR payment:', err);
     return false;
   }
 }
@@ -198,17 +201,18 @@ async function checkPRPaid(config: X402Config, prIdentifier: string): Promise<bo
  * Middleware to verify agent wallet for x402 payments
  */
 export function x402AgentVerification() {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
     const agentAddress = req.headers['x-agent-address'] as string;
 
     if (!agentAddress) {
-      return res.status(401).json({
+      res.status(401).json({
         ok: false,
         error: {
           code: 'AGENT_ADDRESS_REQUIRED',
           message: 'Agent wallet address required for x402 payments',
         },
       });
+      return;
     }
 
     // Attach agent address to request for downstream use

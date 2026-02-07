@@ -1,7 +1,7 @@
 import { WebSocket, WebSocketServer } from 'ws';
 import type { IncomingMessage } from 'http';
 import type { Server } from 'http';
-import type { GameEvent, RoomId } from '@deadwood/shared';
+import type { GameEvent, RoomId } from '../shared/index.js';
 import { getCharacterByApiKey } from '../services/character.js';
 
 interface SpectatorClient {

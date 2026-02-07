@@ -1,5 +1,5 @@
 import type { RequestHandler } from 'express';
-import { ERROR_CODES } from '@deadwood/shared';
+import { ERROR_CODES } from '../shared/index.js';
 import { store } from '../store/index.js';
 
 /**

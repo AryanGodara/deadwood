@@ -6,7 +6,7 @@ import {
   DUEL_ACCEPT_TIMEOUT_TICKS,
   MAX_HEALTH,
   ROOMS,
-} from '@deadwood/shared';
+} from '../shared/index.js';
 import { store } from '../store/index.js';
 import { getInGameTime } from './time.js';
 import { generateAmbientNarration, shouldGenerateAmbient } from './ambient.js';

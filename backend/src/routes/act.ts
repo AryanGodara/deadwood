@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ActionSchema } from '@deadwood/shared';
+import { ActionSchema } from '../shared/index.js';
 import { agentAuth } from '../middleware/agent-auth.js';
 import { rateLimitAction } from '../middleware/rate-limit.js';
 import { validate } from '../middleware/validate.js';

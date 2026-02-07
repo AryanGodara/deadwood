@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { resolveShooting, resolvePunch, resolveDuelRound, hasAmmo, deductAmmo } from './combat.js';
-import type { Character } from '@deadwood/shared';
+import type { Character } from '../shared/index.js';
 
 function createTestCharacter(overrides: Partial<Character> = {}): Character {
   return {

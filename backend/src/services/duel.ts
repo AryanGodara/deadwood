@@ -3,7 +3,7 @@ import {
   ROOMS,
   REPUTATION_MODIFIERS,
   type Character,
-} from '@deadwood/shared';
+} from '../shared/index.js';
 import { store, type Duel } from '../store/index.js';
 import { resolveDuelRound } from '../engine/combat.js';
 import { createEvent, broadcastToRoom, broadcastGlobal } from './event.js';

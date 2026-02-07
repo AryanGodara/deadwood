@@ -1,4 +1,4 @@
-import type { Character } from '@deadwood/shared';
+import type { Character } from '../shared/index.js';
 
 /**
  * Resolve a shooting attack outside of a duel

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { RegisterRequestSchema } from '@deadwood/shared';
+import { RegisterRequestSchema } from '../shared/index.js';
 import { validate } from '../middleware/validate.js';
 import { registerCharacter } from '../services/character.js';
 import { createEvent, broadcastGlobal } from '../services/event.js';

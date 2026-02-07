@@ -1,4 +1,4 @@
-import type { Character, GameEvent, RoomId } from '@deadwood/shared';
+import type { Character, GameEvent, RoomId } from '../shared/index.js';
 
 export interface Bounty {
   id: string;

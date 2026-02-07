@@ -1,4 +1,4 @@
-import { TICK_DURATION_MS, MINUTES_PER_GAME_HOUR, type DayPhase } from '@deadwood/shared';
+import { TICK_DURATION_MS, MINUTES_PER_GAME_HOUR, type DayPhase } from '../shared/index.js';
 
 /**
  * Convert tick number to in-game time

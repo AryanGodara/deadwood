@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getLivingCharacters, getCharacterByName, getCharacterPublicInfo } from '../services/character.js';
 import { success, error } from '../lib/response.js';
-import { ERROR_CODES } from '@deadwood/shared';
+import { ERROR_CODES } from '../shared/index.js';
 
 const router = Router();
 

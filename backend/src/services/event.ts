@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import type { GameEvent, RoomId, EventType } from '@deadwood/shared';
+import type { GameEvent, RoomId, EventType } from '../shared/index.js';
 import { store } from '../store/index.js';
 import { wsManager } from '../ws/manager.js';
 

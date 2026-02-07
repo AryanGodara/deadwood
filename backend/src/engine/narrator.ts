@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
-import type { Character, RoomId, DayPhase } from '@deadwood/shared';
-import { ROOM_DATA } from '@deadwood/shared';
+import type { Character, RoomId, DayPhase } from '../shared/index.js';
+import { ROOM_DATA } from '../shared/index.js';
 
 let anthropic: Anthropic | null = null;
 

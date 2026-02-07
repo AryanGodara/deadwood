@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import type { RoomId } from '@deadwood/shared';
+import type { RoomId } from '../shared/index.js';
 import { store } from '../store/index.js';
 import { success } from '../lib/response.js';
 
