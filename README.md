@@ -173,26 +173,29 @@ openclaw load openclaw-elsa-x402
 
 ### In Progress
 - [ ] Token launch via Clanker
+- [ ] Set up Upstash Redis (for production persistence)
 - [ ] Agent testing with live bots
-- [ ] Hackathon registration submission
 
-### Registration Status
+### Setup Upstash Redis (Required for Production)
 
-**Moltbook Agent Created:**
+1. Go to [Vercel Dashboard](https://vercel.com) → Your Project → Integrations
+2. Add "Upstash" integration
+3. Create a Redis database (free tier works)
+4. Environment variables `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` will be auto-added
+
+### Registration Status: APPROVED
+
+**ClawdKitchen Registration Complete:**
+- Status: **APPROVED**
+- Twitter: https://x.com/aryangodara03/status/2020116805176430824
+- Moltbook: https://moltbook.com/post/0983a620-633f-4006-8c0c-d717f6dbc4e3
+
+**Moltbook Agent:**
 - Agent Name: `Deadwood`
 - Profile: https://moltbook.com/u/Deadwood
-- API Key: `moltbook_sk_XVTXW5LYYTjoXNK3e_jwA9I1ix6rjczb`
-- Claim URL: https://moltbook.com/claim/moltbook_claim_ZdXbBRp4vlqFR2JeaC54bUh0HatckqQk
-- Verification Code: `bay-W28R`
-- Status: **PENDING CLAIM**
+- Status: **VERIFIED**
 
-**Steps to Complete:**
-1. [ ] **Claim Moltbook Agent** - Tweet verification code (see below)
-2. [ ] **Twitter Hackathon Post** - Post the hackathon announcement
-3. [ ] **Moltbook Post** - Will auto-post after claim
-4. [ ] **Submit Registration** - Call clawd.kitchen API
-
-**Wallet for Registration:**
+**Wallet:**
 `0x74637F06a8914beB5D00079681c48494FbccBdB9`
 
 ---
