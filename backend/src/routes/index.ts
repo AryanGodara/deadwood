@@ -10,6 +10,7 @@ import bountiesRouter from './bounties.js';
 import graveyardRouter from './graveyard.js';
 import leaderboardRouter from './leaderboard.js';
 import historyRouter from './history.js';
+import prRouter from './pr.js';
 
 const router = Router();
 
@@ -32,5 +33,8 @@ router.use('/api/bounties', bountiesRouter);
 router.use('/api/graveyard', graveyardRouter);
 router.use('/api/leaderboard', leaderboardRouter);
 router.use('/api/history', historyRouter);
+
+// x402 PR Submission API
+router.use('/api/pr', prRouter);
 
 export default router;
