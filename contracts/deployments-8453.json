@@ -1,0 +1,12 @@
+{
+  "network": "base",
+  "chainId": 8453,
+  "deployer": "0x74637F06a8914beB5D00079681c48494FbccBdB9",
+  "deployedAt": "2026-02-07T12:23:16.970Z",
+  "contracts": {
+    "DeadwoodToken": "0xb0C959EdB73733Ff9a4F0b1BE35eA76f95f60a8D",
+    "DeadwoodCharacters": "0xF9F494675D67C5e55362926234f3F49FA37271e4",
+    "DeadwoodWorld": "0x2F9f340Fe276c33c06CD06aE09f274cB9CDB9FE0",
+    "DeadwoodPRGate": "0xcA6B43bbAD2244f699b94856cA35107fEF5b077D"
+  }
+}
