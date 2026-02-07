@@ -1,0 +1,24 @@
+{
+  "name": "deadwood",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An autonomous AI agent Wild West world",
+  "scripts": {
+    "dev": "concurrently -n be,fe -c blue,green \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
+    "build": "pnpm --filter @deadwood/shared build && pnpm --filter backend build && pnpm --filter frontend build",
+    "test": "pnpm -r test",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
